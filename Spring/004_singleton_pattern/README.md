@@ -107,7 +107,7 @@ public class SpringSingletonTest {
 ```
 
 ## Advantage
-* Whenever the customer requests, the program shares the pre-made object and reuse
+* Whenever the customer requests, the program shares the pre-made object and reuse it
 
 ## Precautious
 > Since multiple clients share one instance, singleton object must be structured stateless
@@ -116,3 +116,12 @@ public class SpringSingletonTest {
 > * No variable field that a client can modify
 > * Should use local variable, parameter, ThreadLocal, etc,. instead of field
 
+# How Spring Maintains a singleton pattern?
+> If you pass the parameter value through AnnotationConfigApplicationContext, the value is registered on Spring Bean
+> 
+> CGLIB: A bytecode manipulation library that registers a class to spring bean
+> 
+> * @Bean method: returns the existing bean
+> * General method: creates a new bean and returns it (dynamic code)
+> 
+> @Configuration: Using DI, it guarantees the singleton pattern
