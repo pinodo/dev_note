@@ -19,11 +19,14 @@ Client sends a packet to the server through a bunch of nodes
 > 3. Addressing
 
 # TCP / UDP
-<h3>IP Stack Layers</h3>
-> * Application layer - HTTP / FTP
-> * Transportation layer - TCP, VDP
-> * Internet - IP
-> * Network Interface
+IP Stack Layers
+> Application layer - HTTP / FTP
+> 
+> Transportation layer - TCP, VDP
+> 
+> Internet - IP
+> 
+> Network Interface
 
 ```
 > Protocol Layer
@@ -35,7 +38,8 @@ Network Interface - LAN Driver / LAN Devices <- (5) A packet is contained in a L
 Server            - (6) With an Ethernet frame, a packet is sent to the server             
 ```
 
-<h3>TCP/IP packet info</h3>
+> TCP/IP packet info
+> 
 > IP packet (Start IP, End IP, etc,.)
 > 
 > U
@@ -46,16 +50,16 @@ Server            - (6) With an Ethernet frame, a packet is sent to the server
 > 
 > Data
 
-<h3>TCP Features</h3>
-> 1. Connectivity-oriented - TCP 3-way handshake (virtual connection)
-> 2. Guarantee data transportation
-> 3. Guarantee the order
-> 4. Reliable
-> 5. Mostly used
+> TCP Features
+> * Connectivity-oriented - TCP 3-way handshake (virtual connection)
+> * Guarantee data transportation
+> * Guarantee the order
+> * Reliable
+> * Mostly used
 
-<h3>UDP Features</h3>
-> 1. Same as IP (+PORT +checksum)
-> 2. Simple, Fast
+> UDP Features
+> * Same as IP (+PORT +checksum)
+> * Simple, Fast
 
 > PORT - Seperates processes in a same IP
 > 
