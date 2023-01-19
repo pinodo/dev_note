@@ -91,5 +91,24 @@ Solution - HTTP persistent connections
 
 ### 3. HTTP message
 ```
+<HTTP Request message>
 
+GET /search?q=hello&hl=ko HTTP/1.1  === start-line
+Host: www.google.com                === header
+                                    === empty line (CRLF)
+
+<HTTP Response message>
+HTTP/1.1 200 OK                         === start-line
+Content-Type: text/html;charset=UTF-8   === header
+Content-Length: 3528                    == 
+                                        === empty line (CRLF)
+<html>                                  === message body
+  <body>...</body>                      ==
+</html>                                 ==
+```
+```
+HTTP-message = start-line
+               *( header-field CRLF )
+               CRLF
+               [ message-body ]
 ```
