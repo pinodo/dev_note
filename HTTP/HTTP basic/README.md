@@ -108,7 +108,14 @@ Content-Length: 3528                    ==
 ```
 ```
 HTTP-message = start-line
-               *( header-field CRLF )
+               *( header-field CRLF ) 
                CRLF
                [ message-body ]
+```
+```
+<HTTP header>
+
+header-field = field-name ":" OWS field-value OWS (OWS: allow to use the empty space)
+> All the additional information that are required when HTTP transportation
+> Examples: body message, messege body size, compression, auth, requested info, server application info, cache administration info, ...
 ```
