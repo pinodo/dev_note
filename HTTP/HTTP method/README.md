@@ -184,3 +184,24 @@ The DELETE method deletes the specified resource
 DELETE /customers/123 HTTP/1.1
 Host: localhost:8080
 ```
+
+## HTTP method property
+* Safe Methods
+* Idempotent Methods
+* Cacheable Methods
+
+![img.png](img.png)
+
+```
+Safe: Does not change the resource even if the method is called
+
+Idempotent: The result is all the same with the iterative calls
+> GET: the same result
+> PUT: Replace the result, which results in the same result
+> DELETE: Delete the result, which results in the same deleted result
+> POST: NOT A IDEMPOTENT
+
+Cacheable: GET / HEAD / POST / PATCH
+> In a real world, GET is mostly used to cache the request result
+> POST, PATCH: it is hard to implement that considering the body message as a cache key
+```
