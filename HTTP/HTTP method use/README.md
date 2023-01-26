@@ -45,6 +45,7 @@ Host: www.google.com
 ```shell
 [Form data]
 
+** POST **
 (1) Web form
 username: {username}
 age: {age}
@@ -61,11 +62,26 @@ Host: localhost:8080
 Content-Type: application/x-www-form-urlencoded
 
 username={username}&age={age}
+
+** GET **
+(1) Web form
+username: {username}
+age: {age}
+[submit btn]
+<form action="/save" method="get">
+  <input type="text" name="username" />
+  <input type="text" name="age" />
+  <button type="submit">Submit</button>
+</form>
+
+(2) Request
+POST /customers?username={username}&age={age} HTTP/1.1
+Host: localhost:8080
 ```
 ```shell
-[Multi data]
+[Multipart form data]
 
-(1) Web form with the uploaded file
+(1) Web form with an uploaded file
 username: {username}
 age: {age}
 file: [select file btn] image1.png
@@ -95,7 +111,19 @@ Content-Type: image/png
 ------XXX--
 ```
 
-### 1.3.4 Data transportation through HTTP API
+### 1.3.4 HTML Form data transportation Summary
+* HTML Form submit: POST
+  * ex) register, order, modify the data
+* Content-Type: application/x-www-form-urlencoded
+  * Transport the content of the form through the message body (kdy=value, query parameter format)
+  * process the transportation data by url encoding - ex) abc !: abc%20%21
+* HTML Form: can also transport w/ GET method
+* Content-Type: multipart/form-data
+  * Used when transporting the binary data such as file upload
+  * Transport form content plus other types of files
+* HTML Form: GET or POST
+
+### 1.3.5 Data transportation through HTTP API
 > Register, Order products, Change the data
 > 
 > Server to Server, App client, Web client (Ajax)
@@ -108,4 +136,80 @@ Content-Type: application/json
 "username": "unanimous",
 "age": 19
 }
+
+(2) Server
+/customers
 ```
+* Server to Server
+  * Backend system transportation
+* App client
+  * Iphone, Android
+* Web client
+  * Transportation through JavaScript(AJAX) instead of HTML Form transportation
+  * ex) Web client and API transportation like in React, VueJS
+* POST, PUT, PATCH: data transportation through the message body
+* GET: search, transport data with query parameter
+* Content-Type: application/json
+  * ex) TEXT, XML, JSON, etc,.
+
+# 2. Structure HTTP API
+
+## 2.1 HTTP API - Collection
+> POST register - ex) Provides the managing customers API
+```shell
+Customer list     /customers      => GET
+Customer register /customers      => POST
+Customer search   /customers/{id} => GET
+Customer modify   /customers/{id} => PATCH, PUT, POST
+Customer delete   /customers/{id} => DELETE
+```
+---
+* Client doesn't know about the newly registered resource's URI
+* Server creates the resource URI to the newly created one
+  ```
+  HTTP/1.1 201 Created
+  Location: /customers/123
+  ```
+* Collection
+  * Resource directory managed by server
+  * Server creates and manages the resource URI
+  * Collection: /customers
+
+## 2.2 HTTP API - Store
+> PUT register - ex) Manages the static contents, Manage the remote file 
+```shell
+File list                 /files            => GET
+File search               /files/{filename} => GET
+File register             /files/{filename} => PUT
+File delete               /files/{filename} => DELETE
+File register(a bunch of) /files            => POST
+```
+---
+* Client should know the resource URI
+  * File register /files/{filename} => PUT
+  * PUT /files/abc.jpg
+* Client designates the resource URI
+* Store
+  * Resource repository managed by client
+  * Client knows and manages the resource URI
+  * Store: /files
+
+## 2.3 HTML FORM
+> Manages web page customers
+> 
+> Only GET or POST
+> 
+> Resolve the problem by using AJAX
+```shell
+Customer list           /customers                            => GET
+Customer register form  /customers/new                        => GET
+Customer register       /customers/new, /customers            => POST
+Customer search         /customers/{id}                       => GET
+Customer modify form    /customers/{id}/edit                  => GET
+Customer modify         /customers/{id}/edit, /customers/{id} => POST
+Customer delete         /customers/{id}/delete                => POST
+```
+* HTML FORM: only supports GET, POST
+* Control URI
+  * To resolve the restriction, control URI uses the resource path as a verb form
+  * /new, /edit, /delete
