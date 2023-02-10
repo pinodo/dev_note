@@ -174,3 +174,29 @@ Request only for the result screen (moves forward to (5))
 => 304 response should not contains the message body since it has to use local cache
 => When conditional GET, HEAD is requestd, it uses 304
 ```
+
+### 1.1.4 400th: Client Error
+* Upon request, since there's a grammar error or etc, server cannot process the request
+
+#### 1.1.4.1 400 Bad Request
+* Request phrase, message
+* Client should revise the request content and resend them
+* ex) A wrong request parameter, API spec doesn't match
+
+#### 1.1.4.2 401 Unauthorized
+* Not authenticated
+* Authentication: checks who is me
+* Authorization: grants authority (Authentication before Authorization)
+
+#### 1.1.4.3 403 Forbidden
+* ex) Logged in as a user who is not an admin, and tries to access to the admin-level resource
+
+#### 1.1.4.4 404 Not Found
+* Request resource is not in the server 
+
+### 1.1.5 500th: Server Error
+* Server internal error
+
+#### 1.1.5.1 503 Service Unavailable
+* A temporary overload in the server.
+* By sending a Retry-After header field, it is possible to seek how many times will be taken until restoration.
